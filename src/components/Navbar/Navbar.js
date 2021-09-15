@@ -15,7 +15,7 @@ const Navbar = () => {
     <Nav>
       <NavbarContainer>
         <NavHome to="/">
-          <NavHomeText>Covid-19 App</NavHomeText>
+          <NavHomeText>Covid19 App</NavHomeText>
         </NavHome>
         <NavMenu>
           <NavItem>

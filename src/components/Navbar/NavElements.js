@@ -1,7 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { Container } from "../../GlobalStyles";
+import { NavContainer } from "../../GlobalStyles";
 
 export const Nav = styled.nav`
   background: #52414c;
@@ -15,11 +15,11 @@ export const Nav = styled.nav`
   z-index: 999;
 `;
 
-export const NavbarContainer = styled(Container)`
+export const NavbarContainer = styled(NavContainer)`
   display: flex;
   justify-content: space-between;
   height: 80px;
-  ${Container}
+  ${NavContainer}
 `;
 
 export const NavHome = styled(Link)`
@@ -53,10 +53,12 @@ export const NavLink = styled(Link)`
   display: flex;
   align-items: center;
   text-decoration: none;
+  font-family: "Glory", sans-serif;
   padding: 0.5rem 1rem;
   height: 100%;
 `;
 
 export const NavHomeText = styled.h1`
   font-size: 2rem;
+  font-family: "Poppins", sans-serif;
 `;
