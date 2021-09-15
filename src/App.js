@@ -1,25 +1,27 @@
 import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import GlobalStyles from "./GlobalStyles";
+// import FetchData from "./components/Fetch/FetchData";
+import Home from "./pages/Home";
+import Turkey from "./pages/Turkey";
+import Italy from "./pages/Italy";
+import Germany from "./pages/Germany";
+import UnitedStates from "./pages/UnitedStates";
+import Navbar from "./components/Navbar/Navbar";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <GlobalStyles />
+      <Navbar />
+      <Switch>
+        <Route path="/" exact component={Home} />
+        <Route path="/Turkey" component={Turkey} />
+        <Route path="/Italy" component={Italy} />
+        <Route path="/Germany" component={Germany} />
+        <Route path="/UnitedStates" component={UnitedStates} />
+      </Switch>
+    </Router>
   );
 }
 
