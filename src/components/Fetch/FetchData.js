@@ -6,7 +6,7 @@ const FetchData = () => {
       method: "GET",
       headers: {
         "x-rapidapi-host": "covid-19-data.p.rapidapi.com",
-        "x-rapidapi-key": "2e6f85a8c4msh74ef635f36af05dp12928ejsn344edfc2fdf8",
+        "x-rapidapi-key": "undefined",
       },
     });
     const parsedData = await response.json();
