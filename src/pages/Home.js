@@ -20,7 +20,7 @@ const Welcome = styled.h1`
 `;
 
 const WelcomeText =
-  "Welcome to the App! Navigate through the bar to see detailed data and charts about countries";
+  "Welcome to the App! Navigate through the bar ↑ to see detailed data and charts about countries";
 
 const Home = () => (
   <MainSection>
