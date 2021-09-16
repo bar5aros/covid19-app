@@ -1,6 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 
+const MainSection = styled.section`
+  background-color: #e3655b;
+`;
+
 const GreetingContainer = styled.div`
   padding: 100px;
   display: flex;
@@ -19,11 +23,11 @@ const WelcomeText =
   "Welcome to the App! Navigate through the bar to see detailed data and charts about countries";
 
 const Home = () => (
-  <section>
+  <MainSection>
     <GreetingContainer>
       <Welcome>{WelcomeText}</Welcome>
     </GreetingContainer>
-  </section>
+  </MainSection>
 );
 
 export default Home;
