@@ -1,7 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import GlobalStyles from "./GlobalStyles";
-// import FetchData from "./components/Fetch/FetchData";
 import Home from "./pages/Home";
 import Turkey from "./pages/Turkey";
 import Italy from "./pages/Italy";

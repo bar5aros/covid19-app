@@ -1,73 +1,44 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { useMemo } from "react";
+import React from "react";
 import styled from "styled-components";
-import { useTable } from "react-table";
 
-const Table = () => {
-  // useMemo(() => props.data, []);
-  const totalData = useMemo(() => [15679, 343, 124]);
-  const totalDataColumns = useMemo(
-    () => [
-      {
-        Header: "Turkey - Date",
-        columns: [
-          {
-            Header: "Confirmed",
-            accessor: "confirmed",
-          },
-          {
-            Header: "Recovered",
-            accessor: "recovered",
-          },
-          {
-            Header: "Deaths",
-            accessor: "deaths",
-          },
-        ],
-      },
-    ],
+const Row = styled.tr``;
+const Header = styled.th`
+  margin: 0;
+  padding: 0.5rem;
+  border-bottom: 1px solid black;
+  border-right: 1px solid black;
 
-    []
-  );
+  :last-child {
+    border-right: 0;
+  }
+`;
+const TableContainer = styled.table`
+  border-spacing: 0;
+  border: 1px solid black;
+`;
 
-  // const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable({
-  //   columns,
-  //   data,
-  // });
-  const tableInstance = useTable({
-    columns: totalDataColumns,
-    data: totalData,
-  });
+const Table = (props) => (
+  <TableContainer>
+    <Row>
+      <Header>Turkey</Header>
+    </Row>
+    <Row>
+      <Header>Confirmed</Header>
+      <Header>{props.data[0].confirmed}</Header>
+    </Row>
+    <Row>
+      <Header>Recovered</Header>
+      <Header>{props.data[1].recovered}</Header>
+    </Row>
+    <Row>
+      <Header>Deaths</Header>
+      <Header>{props.data[2].deaths}</Header>
+    </Row>
+  </TableContainer>
+);
 
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = tableInstance;
-
-  return (
-    <table {...getTableProps()}>
-      <thead>
-        {headerGroups.map((headerGroup) => (
-          <tr {...headerGroup.getHeaderGroupProps()}>
-            {headerGroup.headers.map((column) => (
-              <th {...column.getHeaderProps()}>{column.render("Header")}</th>
-            ))}
-          </tr>
-        ))}
-      </thead>
-      <tbody {...getTableBodyProps()}>
-        {rows.map((row) => {
-          prepareRow(row);
-          return (
-            <tr {...row.getRowProps()}>
-              {row.cells.map((cell) => (
-                <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
-              ))}
-            </tr>
-          );
-        })}
-      </tbody>
-    </table>
-  );
-};
-
+// eslint-disable-next-line no-unused-vars
 const Styles = styled.div`
   padding: 1rem;
 
@@ -95,5 +66,5 @@ const Styles = styled.div`
       }
     }
   }
-
+`;
 export default Table;
