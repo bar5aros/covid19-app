@@ -1,27 +1,20 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
+/* eslint-disable react/prop-types */
+/* eslint-disable react/jsx-filename-extension */
+/* eslint-disable react/jsx-one-expression-per-line */
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-shadow */
 import React from "react";
-// import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-// import Skeleton from "react-loading-skeleton";
 import styled from "styled-components";
 import DatePicker from "react-datepicker";
+import axios from "axios";
 import Table from "../components/Table/Table";
 import Doughnut from "../components/Charts/Doughnut";
 import TurkeyContext from "../Context/TurkeyContext";
+import HorizontalBar from "../components/Charts/HorizontalBar";
 
-// const DUMMY_DATA = [
-//   {
-//     confirmed: 15325,
-//   },
-//   {
-//     recovered: 315,
-//   },
-//   {
-//     deaths: 356,
-//   },
-// ];
+const DUMMY_BAR_DATA = [133513, 452455, 24644, 56445];
 
 const HeaderText = styled.h1`
   font-size: 2rem;
@@ -63,88 +56,75 @@ const Turkey = () => {
     console.log("DateToFetch", dateToFetch);
     return dateToFetch;
   };
-  const dailyDataProcessor = (dailyData) => {
+  const totalDataProcessor = (fetchedTotalData) => {
+    const finalTotalData = [];
+    finalTotalData.push({ confirmed: fetchedTotalData[0].confirmed });
+    finalTotalData.push({ recovered: fetchedTotalData[0].recovered });
+    finalTotalData.push({ deaths: fetchedTotalData[0].deaths });
+    finalTotalData.push({ critical: fetchedTotalData[0].critical });
+    setTotalProcessed(finalTotalData);
+  };
+  const totalChartData = (totalDataProcessed) => {
+    const tempArr = [];
+    const data = [];
+    totalDataProcessed.forEach((el) => tempArr.push(Object.values(el)));
+    tempArr.forEach((el) => data.push(el[0]));
+    console.log("chart data", data);
+    return data;
+  };
+  const dailyDataProcessor = (fetchedDailyData) => {
     const finalDailyData = [];
-    finalDailyData.push({ confirmed: dailyData[0].provinces[0].confirmed });
-    finalDailyData.push({ recovered: dailyData[0].provinces[0].recovered });
-    finalDailyData.push({ deaths: dailyData[0].provinces[0].deaths });
+    finalDailyData.push({ confirmed: fetchedDailyData[0].provinces[0].confirmed });
+    finalDailyData.push({ recovered: fetchedDailyData[0].provinces[0].recovered });
+    finalDailyData.push({ deaths: fetchedDailyData[0].provinces[0].deaths });
     setDailyProcessed(finalDailyData);
   };
   const fetchDayData = async (dateInput) => {
     // getDailyReportByCountryName API
     const fetchURL = `https://covid-19-data.p.rapidapi.com/report/country/name?name=Turkey&date=${dateInput}`; // date=2020-04-01
-    const response = await fetch(fetchURL, {
-      method: "GET",
-      headers: {
-        "x-rapidapi-host": "covid-19-data.p.rapidapi.com",
-        "x-rapidapi-key": "2e6f85a8c4msh74ef635f36af05dp12928ejsn344edfc2fdf8", // insert API key
-      },
-    });
-    const parsedData = await response.json();
-    console.log("ParsedDatacik", parsedData);
-    setDailyData(parsedData);
-  };
 
-  const fetchTotalData = async () => {
-    // getLatestCountryDataByName
-    const fetchURL = "https://covid-19-data.p.rapidapi.com/country?name=turkey";
-    const response = await fetch(fetchURL, {
-      method: "GET",
+    const res = await axios.get(fetchURL, {
       headers: {
         "x-rapidapi-host": "covid-19-data.p.rapidapi.com",
         "x-rapidapi-key": "2e6f85a8c4msh74ef635f36af05dp12928ejsn344edfc2fdf8",
       },
     });
-    const parsedData = await response.json();
-    return parsedData;
+    console.log("ParsedDatacik", res.data);
+    setDailyData(res.data);
   };
-  const totalDataProcessor = (totalData) => {
-    const finalTotalData = [];
-    finalTotalData.push({ confirmed: totalData[0].confirmed });
-    finalTotalData.push({ recovered: totalData[0].recovered });
-    finalTotalData.push({ deaths: totalData[0].deaths });
-    finalTotalData.push({ critical: totalData[0].critical });
-    setTotalProcessed(finalTotalData);
-  };
-  const prepareData = (data) => {
-    const arrayData = [];
-    // Confirmed
-    arrayData.push(data[0].confirmed);
-    // Recovered
-    arrayData.push(data[0].recovered);
-    // Deaths
-    arrayData.push(data[0].deaths);
-
-    return arrayData;
+  const fetchTotalData = async () => {
+    const res = await axios.get("https://covid-19-data.p.rapidapi.com/country?name=turkey", {
+      headers: {
+        "x-rapidapi-host": "covid-19-data.p.rapidapi.com",
+        "x-rapidapi-key": "2e6f85a8c4msh74ef635f36af05dp12928ejsn344edfc2fdf8",
+      },
+    });
+    console.log("Fetched Data", res.data);
+    return res.data;
   };
   React.useEffect(() => {
     fetchTotalData()
       .then((receivedData) => {
-        console.log(`Fetched data of ${receivedData[0].country}. See the response below.`);
-        console.log(receivedData);
+        setTotalData(receivedData);
+        totalDataProcessor(receivedData);
       })
-      .then((data) => {
-        setTotalData(data[0]);
-        console.log("Set state data");
-      })
-      .then(() => {
-        setTotalProcessed(totalData);
-      })
-      .then(() => {
-        setLoading(false);
-      })
-
       .catch((err) => {
         console.error(err);
       });
   }, []);
+
+  console.log("TotalData", totalData);
+  console.log("Processed Total Data", totalProcessed);
+  console.log("total chart data", totalChartData(totalProcessed));
+  console.log(totalChartData(totalProcessed));
+
   return (
     <TurkeyContext.Provider value={(totalProcessed, dailyProcessed)}>
       <main>
         <HeaderText>Turkey</HeaderText>
         <TotalSection>
           <SectionHeader>Total Data</SectionHeader>
-          {/* <TotalTable data={DUMMY_DATA}/> */}
+          <HorizontalBar data={totalChartData(totalProcessed)} />
         </TotalSection>
         <DailySection>
           <DatePicker
@@ -154,9 +134,6 @@ const Turkey = () => {
               console.log("SelectedDate", selectedDate);
               setFetchDate(dateInputHandler(selectedDate));
             }}
-            onCalendarClose={() =>
-              fetchDayData(fetchDate).then(() => dailyDataProcessor(dailyData))
-            }
           />
           <Doughnut />
         </DailySection>

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const MainSection = styled.section`
+const MainSection = styled.main`
   background-color: #e3655b;
 `;
 
