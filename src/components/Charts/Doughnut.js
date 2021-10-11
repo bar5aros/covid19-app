@@ -1,12 +1,5 @@
 import React from "react";
 import { Doughnut as DoughnutChart } from "react-chartjs-2";
-import styled from "styled-components";
-
-const Container = styled.div`
-  width: 300px;
-  height: 300px;
-  background-color: #f5f5f5;
-`;
 
 const data = {
   labels: ["Confirmed", "Recovered", "Deaths"],
@@ -35,10 +28,6 @@ const data = {
   ],
 };
 
-const Doughnut = () => (
-  <Container>
-    <DoughnutChart data={data} height={300} width={300} />
-  </Container>
-);
+const Doughnut = () => <DoughnutChart data={data} height={300} width={300} />;
 
 export default Doughnut;

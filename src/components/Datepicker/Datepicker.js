@@ -1,5 +1,4 @@
 /* eslint-disable */
-
 import React from "react";
 import DatePicker from "react-datepicker";
 
@@ -16,6 +15,7 @@ const Datepicker = (props) => {
   return (
     <DatePicker
       selected={startDate}
+      calendarContainer={ContainerLittle}
       onChange={(selectedDate) => {
         setDate(selectedDate);
         setFetchDate(dateInputHandler(selectedDate));

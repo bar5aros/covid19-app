@@ -1,70 +1,88 @@
-/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable no-unused-vars */
 import React from "react";
 import styled from "styled-components";
 
-const Row = styled.tr``;
-const Header = styled.th`
-  margin: 0;
-  padding: 0.5rem;
-  border-bottom: 1px solid black;
-  border-right: 1px solid black;
+const TableMain = styled.table`
+  margin: 25px 0;
+  font-size: 0.9em;
+  font-family: sans-serif;
+  min-width: 400px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  border-collapse: collapse;
+`;
 
-  :last-child {
-    border-right: 0;
+const Caption = styled.caption`
+  font-size: 1.2em;
+  font-weight: bold;
+  text-align: center;
+  padding: 10px;
+  color: #fff;
+  background-color: #52414c;
+`;
+
+const TableHeadMain = styled.thead`
+  background-color: #52414c;
+  color: #fff;
+  text-align: center;
+`;
+
+const TableBodyMain = styled.tbody``;
+
+const HeadRow = styled.tr`
+  background-color: #52414c;
+  color: #fff;
+  text-align: center;
+  border-bottom: 1px solid #dddddd;
+`;
+
+const BodyRow = styled.tr`
+  border-bottom: 1px solid #dddddd;
+  &:nth-child(even) {
+    background-color: #f3f3f3;
+  }
+  &::last-of-type {
+    border-bottom: 2px solid #009879;
   }
 `;
-const TableContainer = styled.table`
-  border-spacing: 0;
-  border: 1px solid black;
+
+const TableHead = styled.th`
+  padding: 12px 15px;
+  text-align: right;
+`;
+
+const TableData = styled.td`
+  padding: 12px 15px;
+  text-align: right;
+  &:first-of-type {
+    text-align: left;
+  }
 `;
 
 const Table = (props) => (
-  <TableContainer>
-    <Row>
-      <Header>Turkey</Header>
-    </Row>
-    <Row>
-      <Header>Confirmed</Header>
-      <Header>{props.data[0].confirmed}</Header>
-    </Row>
-    <Row>
-      <Header>Recovered</Header>
-      <Header>{props.data[1].recovered}</Header>
-    </Row>
-    <Row>
-      <Header>Deaths</Header>
-      <Header>{props.data[2].deaths}</Header>
-    </Row>
-  </TableContainer>
+  <TableMain>
+    <Caption>Turkey</Caption>
+    <TableHeadMain>
+      <HeadRow />
+    </TableHeadMain>
+    <TableBodyMain>
+      <BodyRow>
+        <TableData>Confirmed</TableData>
+        <TableData>{props.data.confirmed}</TableData>
+      </BodyRow>
+      <BodyRow>
+        <TableData>Recovered</TableData>
+        <TableData>{props.data.recovered}</TableData>
+      </BodyRow>
+      <BodyRow>
+        <TableData>Deaths</TableData>
+        <TableData>{props.data.deaths}</TableData>
+      </BodyRow>
+      <BodyRow>
+        <TableData>Critical</TableData>
+        <TableData>{props.data.critical}</TableData>
+      </BodyRow>
+    </TableBodyMain>
+  </TableMain>
 );
 
-// eslint-disable-next-line no-unused-vars
-const Styles = styled.div`
-  padding: 1rem;
-
-  table {
-    border-spacing: 0;
-    border: 1px solid black;
-
-    tr {
-      :last-child {
-        td {
-          border-bottom: 0;
-        }
-      }
-    }
-
-    th,
-    td {
-      margin: 0;
-      padding: 0.5rem;
-      border-bottom: 1px solid black;
-      border-right: 1px solid black;
-
-      :last-child {
-        border-right: 0;
-      }
-    }
-  }
-`;
 export default Table;

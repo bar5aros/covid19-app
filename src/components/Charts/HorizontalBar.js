@@ -1,11 +1,5 @@
 import React from "react";
 import { Bar } from "react-chartjs-2";
-import styled from "styled-components";
-
-const Container = styled.div`
-  width: 300px;
-  height: 300px;
-`;
 
 const HorizontalBar = (props) => {
   const data = {
@@ -48,11 +42,7 @@ const HorizontalBar = (props) => {
       },
     },
   };
-  return (
-    <Container>
-      <Bar data={data} options={options} height={300} width={300} />
-    </Container>
-  );
+  return <Bar data={data} options={options} height={300} width={300} />;
 };
 
 export default HorizontalBar;
