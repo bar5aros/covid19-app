@@ -38,7 +38,7 @@ const HorizontalBar = (props) => {
       },
       title: {
         display: true,
-        text: "Chart.js Horizontal Bar Chart",
+        text: "Total Covid Data",
       },
     },
   };

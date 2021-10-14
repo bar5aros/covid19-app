@@ -60,26 +60,26 @@ const TableData = styled.td`
 
 const Table = (props) => (
   <TableMain>
-    <Caption>Turkey</Caption>
+    <Caption>{props.data[1].province}</Caption>
     <TableHeadMain>
       <HeadRow />
     </TableHeadMain>
     <TableBodyMain>
       <BodyRow>
         <TableData>Confirmed</TableData>
-        <TableData>{props.data.confirmed}</TableData>
+        <TableData>{props.data[0].confirmed}</TableData>
       </BodyRow>
       <BodyRow>
         <TableData>Recovered</TableData>
-        <TableData>{props.data.recovered}</TableData>
+        <TableData>{props.data[4].recovered}</TableData>
       </BodyRow>
       <BodyRow>
         <TableData>Deaths</TableData>
-        <TableData>{props.data.deaths}</TableData>
+        <TableData>{props.data[3].deaths}</TableData>
       </BodyRow>
       <BodyRow>
         <TableData>Critical</TableData>
-        <TableData>{props.data.critical}</TableData>
+        <TableData>{props.data[2].critical}</TableData>
       </BodyRow>
     </TableBodyMain>
   </TableMain>
