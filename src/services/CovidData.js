@@ -1,7 +1,7 @@
 /* eslint-disable consistent-return */
 /* eslint-disable no-console */
 import axios from "axios";
-import { apiHost, apiKey } from "../Enums/Enums";
+import { apiHost, apiKey } from "../enums/Enums";
 
 // TOTAL SECTION
 
