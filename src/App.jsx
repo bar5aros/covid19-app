@@ -2,11 +2,8 @@ import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import GlobalStyles from "./GlobalStyles";
 import Home from "./pages/Home";
-import Turkey from "./pages/Turkey";
-import Italy from "./pages/Italy";
-import Germany from "./pages/Germany";
-import UnitedStates from "./pages/UnitedStates";
 import Navbar from "./components/Navbar/Navbar";
+import Pages from "./pages/Pages";
 
 function App() {
   return (
@@ -15,10 +12,13 @@ function App() {
       <Navbar />
       <Switch>
         <Route path="/" exact component={Home} />
-        <Route path="/Turkey" component={Turkey} />
+        {Pages.map((page) => (
+          <Route path={page.path} component={page.component} />
+        ))}
+        {/* <Route path="/Turkey" component={Turkey} />
         <Route path="/Italy" component={Italy} />
         <Route path="/Germany" component={Germany} />
-        <Route path="/UnitedStates" component={UnitedStates} />
+        <Route path="/UnitedStates" component={UnitedStates} /> */}
       </Switch>
     </Router>
   );

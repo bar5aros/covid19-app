@@ -4,9 +4,9 @@ import React from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from "react-datepicker";
 import { ToastContainer, toast } from "react-toastify";
-import Doughnut from "../components/Charts/Doughnut";
-import HorizontalBar from "../components/Charts/HorizontalBar";
-import Table from "../components/Table/Table";
+import Doughnut from "../Charts/Doughnut";
+import HorizontalBar from "../Charts/HorizontalBar";
+import Table from "../Table/Table";
 import "react-toastify/dist/ReactToastify.css";
 
 import {
@@ -17,7 +17,7 @@ import {
   fetchDayData,
   dayChartData,
   dayTableData,
-} from "../services/CovidData";
+} from "../../services/CovidData";
 import {
   HeaderText,
   TotalSection,
@@ -30,9 +30,9 @@ import {
   DailySection,
   ErrorContainer,
   ErrorText,
-} from "../components/UI/UIComponents";
+} from "./UIComponents";
 
-const Germany = () => {
+const Page = (props) => {
   // to check if daily data exists
   const [dailyExists, setDailyExists] = React.useState(false);
   // other states
@@ -44,7 +44,7 @@ const Germany = () => {
   const [dayTable, setDayTable] = React.useState([]);
 
   React.useEffect(() => {
-    fetchTotalData("Germany")
+    fetchTotalData(props.code)
       .then((data) => {
         console.log(data);
         setTotalChart(totalChartData(data[0]));
@@ -63,7 +63,7 @@ const Germany = () => {
 
   return (
     <>
-      <HeaderText>Germany</HeaderText>
+      <HeaderText>{props.country}</HeaderText>
 
       {/* Total Section Start */}
 
@@ -93,7 +93,7 @@ const Germany = () => {
               selected={date}
               onChange={async (selectedDate) => {
                 setLoading(true);
-                fetchDayData("Germany", dateInputHandler(selectedDate))
+                fetchDayData(props.code, dateInputHandler(selectedDate))
                   .then((data) => {
                     if (Object.keys(data.provinces).length === 5) {
                       setDailyChart(dayChartData(data[0]));
@@ -137,4 +137,4 @@ const Germany = () => {
   );
 };
 
-export default Germany;
+export default Page;

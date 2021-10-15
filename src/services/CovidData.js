@@ -1,6 +1,7 @@
 /* eslint-disable consistent-return */
 /* eslint-disable no-console */
 import axios from "axios";
+import { apiHost, apiKey } from "../Enums/Enums";
 
 // TOTAL SECTION
 
@@ -10,8 +11,8 @@ export const fetchTotalData = async (country) => {
     method: "get",
     url: `https://covid-19-data.p.rapidapi.com/country?name=${country}`,
     headers: {
-      "x-rapidapi-host": "covid-19-data.p.rapidapi.com",
-      "x-rapidapi-key": "2e6f85a8c4msh74ef635f36af05dp12928ejsn344edfc2fdf8",
+      "x-rapidapi-host": apiHost,
+      "x-rapidapi-key": apiKey,
     },
   };
   const response = await axios(config);
